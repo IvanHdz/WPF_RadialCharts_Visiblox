@@ -1,0 +1,47 @@
+﻿<Window
+    x:Class="Radial.Charts.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:charts="clr-namespace:Visiblox.Charts;assembly=Visiblox.Charts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <charts:BindableDataSeries
+            x:Key="DataSeries"
+            ItemsSource="{Binding}"
+            XValueBinding="{Binding Key}"
+            YValueBinding="{Binding Value}" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <charts:Chart Margin="8" LegendVisibility="Collapsed">
+            <charts:Chart.Series>
+                <charts:ColumnSeries DataSeries="{StaticResource DataSeries}" />
+            </charts:Chart.Series>
+        </charts:Chart>
+        <charts:RadialChart
+            Grid.Column="1"
+            Margin="8"
+            LegendVisibility="Collapsed"
+            YLabelsPosition="Left">
+            <charts:RadialChart.Series>
+                <charts:RadialLineSeries DataSeries="{StaticResource DataSeries}" />
+            </charts:RadialChart.Series>
+            <charts:RadialChart.YAxis>
+                <charts:RadialLinearAxis>
+                    <charts:RadialLinearAxis.Range>
+                        <charts:DoubleRange Maximum="15" Minimum="0" />
+                    </charts:RadialLinearAxis.Range>
+                </charts:RadialLinearAxis>
+            </charts:RadialChart.YAxis>
+        </charts:RadialChart>
+    </Grid>
+</Window>
